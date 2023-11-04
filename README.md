@@ -15,5 +15,9 @@ Geeks for Geeks [says](https://www.geeksforgeeks.org/top-10-python-libraries-for
 6. PyCrypto
 7. BeautifulSoup
 8. PyAutoGUI
-9.  Scikit-learn
+9. Scikit-learn
 10. TensorFlow
+
+## Major sidequest
+
+I found myself getting a bit lost once again amoung all the python tooling - details [here](tooling.md)

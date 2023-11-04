@@ -1,0 +1,10 @@
+scapy
+paramiko
+python-nmap
+requests
+tornado
+crypto
+beautifulsoup4
+pyautogui
+scikit-learn
+tensorflow

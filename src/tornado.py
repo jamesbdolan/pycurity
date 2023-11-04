@@ -2,7 +2,6 @@ import tornado.ioloop
 import tornado.web
 import socket
 
-
 class PortScanHandler(tornado.web.RequestHandler):
     def get(self):
         hostname = self.get_argument('hostname')

@@ -1,0 +1,122 @@
+# Python Tooling
+
+What pushed me away from Python for years has been the tooling, it seemed to be full of tools with overlapping functionality.
+
+What are the *necessary* bits, what are *conventional* bits?
+
+## Breakdown
+
+Some details are coming from [Serious Python](https://nostarch.com/seriouspython)
+
+- Modules explanation by [Stackoverflow](https://stackoverflow.com/a/62923810)
+  - Code modules: most common type of code module is a *.py file
+  - Package modules: most common type of package module is a directory containing an `__init__.py` file.
+    - if one executes a package module via python `<filename>` then `<filename>/__main__.py` will be executed
+    - if one executes that same package module via import `<modulename>` then only the package's `__init__.py` will be executed.
+
+- Environments
+
+  - virtualenv aka venv
+    - `$ python3 -m venv myvenv` runs the module `venv` where 'myenv' is the directory target
+    - `myenv/pyvenv.cfg` can then configure the env to accept system packages
+    - for scripting the local creation of venvs for development
+      - *bash*: the initial go-to for creating a venv
+      - *makefile*: the example I saw was quite self explanatory, [but here's a tutorial](https://makefiletutorial.com/)
+
+        <details>
+        <summary>example makefile</summary>
+
+        ```make
+        env:
+          python3 -m venv env/
+          env/bin/pip install --upgrade pip
+          env/bin/pip install -U pip wheel setuptools
+          env/bin/pip install -r requirements.txt
+
+        env-dev: env
+          env/bin/pip install -r requirements-dev.txt
+
+        test:
+          pytest tests/tests.py
+
+        test-int:
+          python -m pytest tests/integration_tests.py --verbose
+
+        run:
+          python src/main.py
+
+        .PHONY: env test
+        ```
+
+        </details>
+
+      - [*doit*](https://pydoit.org/): a python makefile tool for running tasks
+      - [*just*](https://github.com/casey/just): an upgrade on makefile
+      - [*taskfile*](https://taskfile.dev/): this tool spiked an enlightening [debate](https://news.ycombinator.com/item?id=36744450)
+    - *poetry*, *pipenv* and *conda* are covered [here](https://modelpredict.com/python-dependency-management-tools)
+
+  - requirements.txt [is not enough](https://modelpredict.com/wht-requirements-txt-is-not-enough)
+    - this only lists 1st degree deps, 2nd degree deps are not locked down
+    - create requirements.in and dev-requirements.in
+    - pip-compile (a program of pip-tools) will create a requirements.txt, pip-sync will sync all packages based off requirements.txt
+
+  - common packages
+    - black
+    - isort
+    - flake8
+
+  - tox
+    - seems to only be used for testing
+    - if using .travis.yml, tox can be called which means the local and ci workflows would have same workflow
+
+- Python package configuration
+  - I don't believe this stuff is necessary unless you expect someone to be importing your package in their python app.
+  - [This blog](https://zhauniarovich.com/post/2020/2020-04-starting-new-python-project/#final-configuration) could be helpful
+  - <details>
+    <summary>setup.py</summary>
+
+    ```python
+      import setuptools
+      setuptools.setup()
+    ```
+
+    </details>
+
+  - <details>
+    <summary>setup.cfg</summary>
+
+    ```ini
+    [metadata]
+    name = foobar
+    author = Joe Bloggs
+    author-email = foobar@example.org
+    license = MIT
+    long_description = file: README.rst
+    url = http://pypi.python.org/pypi/foobar
+    requires-python = >=2.6
+    classifiers =
+        Operating System :: OS Independent
+        Programming Language :: Python
+    ```
+
+    </details>
+
+    - contains project config
+    - can contain wheel and sphinx config also
+
+  - entry points
+    - epi (Entry Point Inspector) for shell level investigation
+    - console scripts
+    - plugins and drivers
+  - setuptools
+    - sdist
+    - pbr (Python Build Reasonableness)
+    - egg is just a zip file
+    - wheel
+      - bdist_wheel
+        - creates a `.whl` file in _dist_ dir
+  - .pypirc - with this file you can configure the PyPi publishing, here we are testing the publish on PyPi's test env
+    - `$ python setup.py register           -r testpypi`
+    - `$ python setup.py bdist_wheel upload -r testpypi`
+    - `$ python setup.py sdist       upload -r testpypi`
+    - `$ pip install -i https://testpypi.python.org/pypi your_package`
