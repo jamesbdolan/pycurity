@@ -1,0 +1,12 @@
+scapy
+paramiko
+python-nmap
+requests
+tornado
+#socket
+crypto
+beautifulsoup4
+pyautogui
+#time
+scikit-learn
+tensorflow
