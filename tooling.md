@@ -81,7 +81,7 @@ Some details are coming from [Serious Python](https://nostarch.com/seriouspython
     - create requirements.in and dev-requirements.in
     - pip-compile (a program of pip-tools) will create a requirements.txt, pip-sync will sync all packages based off requirements.txt, here's [a helpful article](https://www.mslinn.com/django/400-pip-tools.html) showing this
     - [an interesting article](https://hynek.me/articles/python-app-deps-2018/) about pip-tools, pipenv and poetry
-    - [an article](https://lil.law.harvard.edu/blog/2019/05/20/improving-pip-compile-generate-hashes/) on why we should use hashes in our requirements.txt file
+    - [an article](https://lil.law.harvard.edu/blog/2019/05/20/improving-pip-compile-generate-hashes/) on why we should use hashes in our requirements.txt file, bit of a scary story really
 
   - common packages
     - black
@@ -95,36 +95,8 @@ Some details are coming from [Serious Python](https://nostarch.com/seriouspython
 - Python package configuration
   - I don't believe this stuff is necessary unless you expect someone to be importing your package in their python app.
   - [This blog](https://zhauniarovich.com/post/2020/2020-04-starting-new-python-project/#final-configuration) could be helpful
-  - <details>
-    <summary>setup.py</summary>
-
-    ```python
-      import setuptools
-      setuptools.setup()
-    ```
-
-    </details>
-
-  - <details>
-    <summary>setup.cfg</summary>
-
-    ```ini
-    [metadata]
-    name = foobar
-    author = Joe Bloggs
-    author-email = foobar@example.org
-    license = MIT
-    long_description = file: README.rst
-    url = http://pypi.python.org/pypi/foobar
-    requires-python = >=2.6
-    classifiers =
-        Operating System :: OS Independent
-        Programming Language :: Python
-    ```
-
-    </details>
-
-    - contains project config
+  - setup.py & setup.cfg
+    - contains project config - a script could potentially read from setup.cfg when activating dev venv with pyenv?
     - can contain wheel and sphinx config also
 
   - entry points

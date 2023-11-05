@@ -1,28 +1,16 @@
-env:
-	pyenv virtualenv 3.10.13 pycurity-dev
-	pip install --upgrade pip==23.1 pip-tools
-	pip-compile --allow-unsafe requirements.in
-	pip-sync
+# your dev venv should already be created and activated
+# i.e. run "pyenv virtualenv 3.10.13 pycurity-dev && pyenv activate pycurity-dev"
 
-env-dev: env
-	pip-compile --allow-unsafe requirements-dev.in
-	pip-sync requirements.txt requirements-dev.txt
-
-run:
-	python src/main.py
-
-.PHONY: env
-
-
-## this came from here - https://hynek.me/articles/python-app-deps-2018/
+## I got these lines from [here](https://hynek.me/articles/python-app-deps-2018/)
+## Read the man if [unclear](https://pip-tools.readthedocs.io/en/latest/cli/pip-compile/)
 update-deps:
 	pip install --upgrade pip-tools pip setuptools
-	pip-compile --upgrade --build-isolation --generate-hashes --output-file requirements/main.txt requirements/main.in
-	pip-compile --upgrade --build-isolation --generate-hashes --output-file requirements/dev.txt requirements/dev.in
+	pip-compile --allow-unsafe --upgrade --build-isolation --generate-hashes --output-file requirements/requirements.txt requirements/main.in
+	pip-compile --allow-unsafe --upgrade --build-isolation --generate-hashes --output-file requirements/requirements-dev.txt requirements/dev.in
 
 init:
 	pip install --editable .
-	pip install --upgrade -r requirements/main.txt  -r requirements/dev.txt
+	pip install --upgrade -r requirements/requirements.txt  -r requirements/requirements-dev.txt
 	rm -rf .tox
 
 update: update-deps init
