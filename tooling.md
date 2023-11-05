@@ -58,7 +58,9 @@ Some details are coming from [Serious Python](https://nostarch.com/seriouspython
   - requirements.txt [is not enough](https://modelpredict.com/wht-requirements-txt-is-not-enough)
     - this only lists 1st degree deps, 2nd degree deps are not locked down
     - create requirements.in and dev-requirements.in
-    - pip-compile (a program of pip-tools) will create a requirements.txt, pip-sync will sync all packages based off requirements.txt
+    - pip-compile (a program of pip-tools) will create a requirements.txt, pip-sync will sync all packages based off requirements.txt, here's [a helpful article](https://www.mslinn.com/django/400-pip-tools.html) showing this
+    - [an interesting article](https://hynek.me/articles/python-app-deps-2018/) about pip-tools, pipenv and poetry
+    - [an article](https://lil.law.harvard.edu/blog/2019/05/20/improving-pip-compile-generate-hashes/) on why we should use hashes in our requirements.txt file
 
   - common packages
     - black

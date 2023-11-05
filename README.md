@@ -21,3 +21,7 @@ Geeks for Geeks [says](https://www.geeksforgeeks.org/top-10-python-libraries-for
 ## Major sidequest
 
 I found myself getting a bit lost once again amoung all the python tooling - details [here](tooling.md)
+
+## To do
+
+- [ ] Put requirements files into requirements directory
