@@ -54,6 +54,27 @@ Some details are coming from [Serious Python](https://nostarch.com/seriouspython
       - [*just*](https://github.com/casey/just): an upgrade on makefile
       - [*taskfile*](https://taskfile.dev/): this tool spiked an enlightening [debate](https://news.ycombinator.com/item?id=36744450)
     - *poetry*, *pipenv* and *conda* are covered [here](https://modelpredict.com/python-dependency-management-tools)
+    - [pyenv](https://github.com/pyenv/pyenv) manages python versions and [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) is a plugin to handle venvs
+      - what is really nice is that I no longer need an "env/" dir in my project
+      - pyenv is outside of any other python tooling, therefore it is not installed with `pip`
+
+        <details>
+        <summary>how I installed and configured them</summary>
+
+        ```sh
+        brew install pyenv
+        echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+        echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+        echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+        brew install pyenv-virtualenv
+        echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+        # tools required for installing python versions
+        brew install openssl readline sqlite3 xz zlib tcl-tk
+        # installing python version 3.10
+        pyenv install 3.10
+        ```
+
+        </details>
 
   - requirements.txt [is not enough](https://modelpredict.com/wht-requirements-txt-is-not-enough)
     - this only lists 1st degree deps, 2nd degree deps are not locked down

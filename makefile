@@ -1,13 +1,12 @@
 env:
-	python3 -m venv env/
-	env/bin/pip3 install --upgrade pip==23.1
-	env/bin/pip3 install pip-tools
-	env/bin/pip-compile --allow-unsafe requirements.in
-	env/bin/pip-sync
+	pyenv virtualenv 3.10.13 pycurity-dev
+	pip install --upgrade pip==23.1 pip-tools
+	pip-compile --allow-unsafe requirements.in
+	pip-sync
 
 env-dev: env
-	env/bin/pip-compile --allow-unsafe requirements-dev.in
-	env/bin/pip-sync requirements.txt requirements-dev.txt
+	pip-compile --allow-unsafe requirements-dev.in
+	pip-sync requirements.txt requirements-dev.txt
 
 run:
 	python src/main.py
